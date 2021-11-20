@@ -59,7 +59,7 @@ usercheck() { \
 	}
 
 preinstallmsg() { \
-	dialog --title "Démarrage de l'installation" --yes-label "Installer" --no-label "Annuler" --yesno "Le reste de l'installation est complètement automatisé.\\n\\nCliquez sur <Installer> avant de vous préparez un café :)" 13 60 || { clear; exit 1; }
+	dialog --title "Démarrage de l'installation" --yes-label "Installer" --no-label "Annuler" --yesno "Le reste de l'installation est complètement automatisé.\\n\\nCliquez sur <Installer> avant de vous préparer un café :)" 13 60 || { clear; exit 1; }
 	}
 
 adduserandpass() { \
@@ -108,7 +108,7 @@ gitmakeinstall() {
 	cd /tmp || return 1 ;}
 
 aurinstall() { \
-	dialog --title "Installation" --infobox "Installation de \`$1\` ($n of $total) depuis l'AUR. $1 $2" 5 70
+	dialog --title "Installation" --infobox "Installation de \`$1\` ($n/$total) depuis l'AUR. $1 $2" 5 70
 	echo "$aurinstalled" | grep -q "^$1$" && return 1
 	sudo -u "$name" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
 	}
