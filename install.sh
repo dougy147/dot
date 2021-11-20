@@ -55,7 +55,7 @@ getuserandpass() { \
 
 usercheck() { \
 	! { id -u "$name" >/dev/null 2>&1; } ||
-	dialog --colors --title "ATTENTION!" --yes-label "CONTINUER" --no-label "Retour..." --yesno "L'utilisateur \`$name\` existe déjà. LUC peut tout de même être installer, TOUTEFOIS il \\Zbremplacera\\Zn les fichiers de configurations qui entreraient en conflit avec lui.\\n\\nLUC \\Zbne va pas\\Zn remplacer vos fichiers personnels (documents, vidéos, etc.). Cliquez sur <CONTINUER> si vous acceptez.\\n\\nNotez que le mot de passe pour l'utilisateur $name' sera désormais celui que vous aurez entrer lors de l'installation de LUC." 14 70
+	dialog --colors --title "ATTENTION!" --yes-label "CONTINUER" --no-label "Retour..." --yesno "L'utilisateur \`$name\` existe déjà. 'NOM_SCRIPT' peut tout de même être installer, TOUTEFOIS il \\Zbremplacera\\Zn les fichiers de configurations qui entreraient en conflit avec lui.\\n\\n'NOM_SCRIPT' \\Zbne va pas\\Zn remplacer vos fichiers personnels (documents, vidéos, etc.). Cliquez sur <CONTINUER> si vous acceptez.\\n\\nNotez que le mot de passe pour l'utilisateur $name' sera désormais celui que vous aurez entrer lors de l'installation de 'NOM_SCRIPT'." 14 70
 	}
 
 preinstallmsg() { \
@@ -78,8 +78,8 @@ refreshkeys() { \
 	}
 
 newperms() { # Set special sudoers settings for install (or after).
-	sed -i "/#LUC/d" /etc/sudoers
-	echo "$* #LUC" >> /etc/sudoers ;}
+	sed -i "/#NOM_SCRIPT/d" /etc/sudoers
+	echo "$* #NOM_SCRIPT" >> /etc/sudoers ;}
 
 manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.
 	[ -f "/usr/bin/$1" ] || (
@@ -222,6 +222,16 @@ rm -f "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
 # make git ignore deleted LICENSE & README.md files
 git update-index --assume-unchanged "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
 
+# Installer dwm, dwmblocks, dmenu & st
+cd "/home/$name/.local/src/dwm"
+sudo make install
+cd "/home/$name/.local/src/dwmblocks"
+sudo make install
+cd "/home/$name/.local/src/dmenu"
+sudo make install
+cd "/home/$name/.local/src/st"
+sudo make install
+
 # Most important command! Get rid of the beep!
 systembeepoff
 
@@ -254,7 +264,7 @@ pkill -15 -x 'pulseaudio'; sudo -u "$name" pulseaudio --start
 
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
-newperms "%wheel ALL=(ALL) ALL #LARBS
+newperms "%wheel ALL=(ALL) ALL #NOM_SCRIPT
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/wifi-menu,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/packer -Syu,/usr/bin/packer -Syyu,/usr/bin/systemctl restart NetworkManager,/usr/bin/rc-service NetworkManager restart,/usr/bin/pacman -Syyu --noconfirm,/usr/bin/loadkeys,/usr/bin/paru,/usr/bin/pacman -Syyuw --noconfirm"
 
 # Last message! Install complete!
