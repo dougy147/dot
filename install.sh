@@ -23,7 +23,7 @@ while getopts ":a:r:b:p:h" o; do case "${o}" in
 esac done
 
 [ -z "$dotfilesrepo" ] && dotfilesrepo="https://github.com/dougy147/dot.git"
-[ -z "$progsfile" ] && progsfile="http://dougy147.com/programmes.csv"
+[ -z "$progsfile" ] && progsfile="https://raw.githubusercontent.com/dougy147/dot/main/programmes.csv"
 [ -z "$aurhelper" ] && aurhelper="yay"
 [ -z "$repobranch" ] && repobranch="master"
 
