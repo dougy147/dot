@@ -1,0 +1,74 @@
+articlelist-format "%D  %-30T  %-120t %-30a"
+datetime-format "%d.%m.%Y"
+itemview-title-format "%N %V - Article '%T' (%u unread, %t total)\n"
+
+auto-reload yes
+reload-threads 20 # before 10
+scrolloff 15
+
+external-url-viewer "urlscan -dc -r 'linkhandler {}'"
+
+bind-key j down
+bind-key k up
+bind-key j next articlelist
+bind-key k prev articlelist
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key G end
+bind-key g home
+bind-key d pagedown
+bind-key u pageup
+bind-key l open
+bind-key h quit
+bind-key a toggle-article-read
+bind-key n next-unread
+bind-key N prev-unread
+bind-key D pb-download
+bind-key U show-urls
+bind-key x pb-delete
+
+## light blue / black background
+color background default default
+color listnormal color242 default
+color listnormal_unread color247 default
+color listfocus color245 color16 bold
+color listfocus_unread color252 color16 bold
+color info color167 default
+color article color255 default
+highlight all "\\|.*\\|" color16 color73 bold
+highlight all "\\[EMPTYLINE\\]" default default invis
+highlight feedlist ".*(0/0))" default default invis
+highlight article "(^link:.*|^date:.*)" default default
+highlight article "(^Fil :.*$)" color73 default bold dim
+highlight article "(^Fil :)" color243 default dim
+highlight article "(^Titre :.*$)" color249 default bold dim
+highlight article "(^Titre :)" color243 default dim
+highlight article "(^Auteur :.*$)" color247 default bold dim
+highlight article "(^Auteur :)" color243 default dim
+highlight article "(^Date :.*$)" color245 default dim
+highlight article "(^Date :)" color243 default dim
+highlight article "(^Lien :.*$)" color245 default dim
+highlight article "(^Lien :)" color243 default dim
+highlight article "(^Liens :.*$)" color245 default dim
+highlight article "(^Liens :)" color243 default dim
+highlight article "(^Signaux :.*$)" color245 default dim
+highlight article "(^Signaux :)" color243 default dim
+# others
+highlight article "\\[[0-9][0-9]*\\]" green default bold dim
+highlight article "\\[image\\ [0-9]+.*\\]" color167 default bold dim
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold dim
+highlight article ":.*\\(link\\)$" cyan black dim
+highlight article ":.*\\(image\\)$" blue default dim
+highlight article ":.*\\(embedded flash\\)$" magenta default dim
+
+# Link handler, macros :
+browser linkhandler
+macro , open-in-browser
+macro t set browser "qndl" ; open-in-browser ; set browser linkhandler
+macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser linkhandler
+macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
+macro l set browser "lynx" ; open-in-browser ; set browser linkhandler
+macro w set browser "w3m" ; open-in-browser ; set browser linkhandler
+macro d set browser "dmenuhandler" ; open-in-browser ; set browser linkhandler
+macro c set browser "xsel -b <<<" ; open-in-browser ; set browser linkhandler
+macro r set browser "presstoterminal.py %u | fold -s -w 115 | less -J --status-col-width=4" ; open-in-browser ; set browser linkhandler

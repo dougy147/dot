@@ -1,0 +1,22 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) notify-send "🌐 $(iwctl station wlan0 show | grep net | awk '{print $3}')" "$(echo $(expressvpn status | grep -i connec | head -n 1) | sed 's/.*m//')";;
+	2) "$TERMINAL" -e iwctl; pkill -RTMIN+4 dwmblocks ;;
+	3) expressvpn_dmenu ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null ; then
+	wifiicon="$(awk '/^\s*w/ { print "", int($3 * 100 / 70) "% " }' /proc/net/wireless)"
+elif grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null ; then
+	grep -xq '0x1003' /sys/class/net/w*/flags && wifiicon="📡 " || wifiicon="❌ "
+fi
+
+if ! [ -f /sys/class/net/tun*/operstate ]; then
+	vpn_state="{leak }"
+else
+	vpn_state="[vpn]"
+fi
+
+echo "$wifiicon""$(sed "s/down//;s/up/🌐/" /sys/class/net/e*/operstate 2>/dev/null)""$vpn_state"

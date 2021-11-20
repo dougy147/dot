@@ -1,0 +1,9 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) notify-send "Ce mois" "$(cal --color=always | sed "s/..7m/<b><span color=\"cyan\">/;s/..27m/<\/span><\/b>/")" ;;
+	2) setsid -f "$TERMINAL" -e calcurse ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+date "+%d %b %Y (%a) $icon%H:%M%p"

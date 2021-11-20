@@ -1,0 +1,41 @@
+#!/bin/bash -x
+#
+
+# Utiliser dmenu pour afficher les fichiers .pdf et .epub contenus dans le dossier "$HOME/books".
+
+dossier_livres="$HOME/books"
+
+repertoires=$(ls -R $dossier_livres | grep djvu && ls -R $dossier_livres | grep pdf)
+choix=$(echo "$repertoires" | dmenu -i -l 30 -p "Livres :")
+echo $choix
+
+if [[ $choix = "" ]]; then
+	exit 1
+else
+	termes=$(printf "" | dmenu -i -p "Termes à chercher (laisser vide pour aucun) :" | awk '{print $1}')
+	if [[ $termes = "" ]]; then
+		emplacement_livre=$(find "$dossier_livres" -name "$choix" | head -n 1)
+		zathura "$emplacement_livre"
+		exit 1
+	else
+		notify-send "Recherche de '$termes' dans '$choix'."
+		emplacement_livre=$(find "$dossier_livres" -name "$choix" | head -n 1)
+		si_trouve=$(pdfgrep -ni "$termes" "$emplacement_livre")
+		if [[ $si_trouve = "" ]]; then
+			notify-send "Impossible de trouver '$termes' dans '$choix'."
+			exit 1
+		else
+			passage_choisi=$(echo "$si_trouve" | dmenu -i -l 30 -p "Sélectionnez le passage :")
+			if [[ $passage_choisi = "" ]]; then
+				exit 1
+			else
+				echo $passage_choisi
+				page_du_livre=$(echo $passage_choisi | head -n 1 | cut -d : -f 1)
+				echo $page_du_livre
+				zathura $emplacement_livre -P "$page_du_livre"
+			fi
+		fi
+	fi
+fi
+
+exit 1

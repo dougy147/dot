@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+
+if grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null && grep -xq 'down' /sys/class/net/e*/operstate 2>/dev/null  ; then
+	echo "]"
+	sleep 15
+fi
+
+choisir_interval() {
+	interval=$(printf "2h\\n1d\\n7d\\n31d\\n365d" | dmenu -i -p "Intervalle : ")
+}
+
+ADA_en_euros=$(echo "eur.rate.sx/1ADA" | sed 's/\ //')
+valeur_1ADA_en_euros=$(echo $(curl -s $ADA_en_euros) | grep -io "^.*\...")
+
+case $BLOCK_BUTTON in
+	2) choisir_interval
+		curl -s "eur.rate.sx/ADA@$interval" > /tmp/chart-ada
+		setsid "$TERMINAL" -e less -Srf "/tmp/chart-ada";;
+esac
+
+echo " $valeur_1ADA_en_euros€"

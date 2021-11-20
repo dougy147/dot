@@ -1,11 +1,5 @@
 # dot
 
-dotfiles
+dotfiles (instable, ne pas installer pour le moment)
 
-Scripts et fichiers de configuration :
-
-* dwm
-* dwmblocks
-* st
-* lf
-* vim
+Idée originale : [Luke Smith](https://github.com/LukeSmithxyz/voidrice)

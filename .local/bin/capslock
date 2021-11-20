@@ -1,0 +1,20 @@
+#!/bin/bash -x
+#
+
+# Remapper CAPS LOCK en sa fonction d'origine (TODO : éviter l'utilisation d'un fichier de switch)
+
+if [[ $(sed -n 1p ~/.local/bin/valeurcapslock.txt) = mod ]]; then
+	$(sed -i 's/mod/original/g' ~/.local/bin/valeurcapslock.txt)
+	$(exec setxkbmap -option)
+	notify-send "CAPSLOCK=original"
+	$(exec xmodmap -e 'keycode 135 = Super_R')
+else
+	$(sed -i 's/original/mod/g' ~/.local/bin/valeurcapslock.txt)
+	$(exec setxkbmap -option caps:super)
+	$(killall xcape 2>/dev/null ; xcape -e 'Super_L=Escape')
+	$(exec xmodmap -e 'keycode 135 = Super_R')
+	notify-send "CAPSLOCK=MOD"
+
+fi
+
+exit 1

@@ -1,0 +1,14 @@
+#!/bin/bash -x
+
+# Activer le filtre à lumière bleue.
+# TODO : éviter l'utilisation d'un switch
+
+if [[ $(sed -n 1p ~/.local/bin/valeurredshift.txt) = jour ]]; then
+	$(sed -i 's/jour/nuit/g' ~/.scripts/mes_scripts/valeurredshift.txt)
+	$(exec redshift -P -O 4000)
+else
+	$(sed -i 's/nuit/jour/g' ~/.local/bin/valeurredshift.txt)
+	$(exec redshift -P -O 6500)
+fi
+
+exit 1
