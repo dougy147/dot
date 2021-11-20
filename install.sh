@@ -225,13 +225,13 @@ rm -f "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
 
 # Installer dwm, dwmblocks, dmenu & st
 cd "/home/$name/.local/src/dwm"
-sudo make install
+sudo -u "$user" make install
 cd "/home/$name/.local/src/dwmblocks"
-sudo make install
+sudo -u "$user" make install
 cd "/home/$name/.local/src/dmenu"
-sudo make install
+sudo -u "$user" make install
 cd "/home/$name/.local/src/st"
-sudo make install
+sudo -u "$user" make install
 
 # Most important command! Get rid of the beep!
 systembeepoff
