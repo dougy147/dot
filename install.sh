@@ -1,15 +1,11 @@
 #!/bin/sh
+
 # forked from : Luke's Auto Rice Boostrapping Script (LARBS)
 # License: GNU GPLv3
 
 # Installer l'environnement graphique automatiquement
 
-
-########################################################
-# NE PAS LANCER CE SCRIPT ! DO NOT LAUNCH, BUGS INSIDE #
-########################################################
-
-# CREDITS TO LUKE SMITH
+# Credits to Luke Smith
 
 ### OPTIONS AND VARIABLES ###
 
@@ -93,7 +89,7 @@ manualinstall() { # Installs $1 manually if not installed. Used only for AUR hel
 	cd /tmp || return 1) ;}
 
 maininstall() { # Installs all needed programs from main repo.
-	dialog --title "Installation" --infobox "Installation de \`$1\` ($n / $total). $1 $2" 5 70
+	dialog --title "Installation" --infobox "Installation de \`$1\` ($n sur $total). $1 $2" 5 70
 	installpkg "$1"
 	}
 
@@ -108,20 +104,20 @@ gitmakeinstall() {
 	cd /tmp || return 1 ;}
 
 aurinstall() { \
-	dialog --title "Installation" --infobox "Installation de \`$1\` ($n/$total) depuis l'AUR. $1 $2" 5 70
+	dialog --title "Installation" --infobox "Installation de \`$1\` ($n sur $total) depuis l'AUR. $1 $2" 5 70
 	echo "$aurinstalled" | grep -q "^$1$" && return 1
 	sudo -u "$name" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
 	}
 
 pipinstall() { \
-	dialog --title "Installation" --infobox "Installation du package Python \`$1\` ($n / $total). $1 $2" 5 70
+	dialog --title "Installation" --infobox "Installation du package Python \`$1\` ($n sur $total). $1 $2" 5 70
 	[ -x "$(command -v "pip")" ] || installpkg python-pip >/dev/null 2>&1
 	yes | pip install "$1"
 	}
 
 installationloop() { \
-	([ -f "$progsfile" ] && cp "$progsfile" /tmp/progs.csv) || curl -Ls "$progsfile" | sed '/^#/d' > /tmp/progs.csv
-	total=$(wc -l < /tmp/progs.csv)
+	([ -f "$progsfile" ] && cp "$progsfile" /tmp/programmes.csv) || curl -Ls "$progsfile" | sed '/^#/d' > /tmp/programmes.csv
+	total=$(wc -l < /tmp/programmes.csv)
 	aurinstalled=$(pacman -Qqm)
 	while IFS=, read -r tag program comment; do
 		n=$((n+1))
@@ -132,7 +128,7 @@ installationloop() { \
 			"P") pipinstall "$program" "$comment" ;;
 			*) maininstall "$program" "$comment" ;;
 		esac
-	done < /tmp/progs.csv ;}
+	done < /tmp/programmes.csv ;}
 
 putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwriting conflicts
 	dialog --infobox "Téléchargement et installation des fichiers de configurations (dotfiles)..." 4 60
@@ -145,7 +141,7 @@ putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwrit
 	sudo -u "$name" cp -rfT "$dir" "$2"
 	}
 
-installsuckless() {#Install st, dwm, dmenu, dwmblocks
+installsuckless() { # Install dwm, dwmblocks, dmenu & st
 	cd "/home/$name/.local/src/dwm"
 	sudo -u "$user" make install
 	cd "/home/$name/.local/src/dwmblocks"
@@ -162,7 +158,7 @@ systembeepoff() { dialog --infobox "Suppression des beeps..." 10 50
 
 finalize(){ \
 	dialog --infobox "Préparation du message de bienvenue..." 4 50
-	dialog --title "Terminé!" --msgbox "Félicitations, tout est en place !\\n\\nPour profiter de votre nouvel environnement, déconnectez-vous de la session puis logguez-vous avec le nom d'utilisateur créé. Si l'environnement graphique ne se lance pas, utilisez la commande \"startx\".\\n\\n.t dougy147" 12 80
+	dialog --title "Terminé!" --msgbox "Félicitations, tout est en place !\\n\\nPour profiter de votre nouvel environnement, déconnectez-vous de la session actuelle puis logguez-vous avec l'utilisateur créé. Si l'environnement graphique ne se lance pas, utilisez la commande \"startx\".\\n\\n dougy147" 12 80
 	}
 
 ### THE ACTUAL SCRIPT ###
@@ -214,7 +210,7 @@ sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
 
 manualinstall yay-bin || error "Erreur d'installation du gestionnaire de paquets AUR."
 
-# The command that does all the installing. Reads the progs.csv file and
+# The command that does all the installing. Reads the programmes.csv file and
 # installs each needed program the way required. Be sure to run this only after
 # the user has been created and has priviledges to run sudo without a password
 # and all build dependencies are installed.
