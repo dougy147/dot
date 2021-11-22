@@ -68,25 +68,38 @@ adduserandpass() { \
 	unset pass1 pass2 ;}
 
 refreshkeys() { \
-	dialog --infobox "Rafraîchissement des keyrings..." 4 40
-	pacman -Q artix-keyring >/dev/null 2>&1 && pacman --noconfirm -S artix-keyring artix-archlinux-support >/dev/null 2>&1
-	pacman --noconfirm -S archlinux-keyring >/dev/null 2>&1
+	case "$(readlink -f /sbin/init)" in
+		*systemd* )
+			dialog --infobox "Rafraîchissement des clés Arch..." 4 40
+			pacman --noconfirm -S archlinux-keyring >/dev/null 2>&1
+			;;
+		*)
+			dialog --infobox "Activation des repos Arch..." 4 40
+			pacman --noconfirm --needed -S artix-keyring artix-archlinux-support >/dev/null 2>&1
+			for repo in extra community; do
+				grep -q "^\[$repo\]" /etc/pacman.conf ||
+					echo "[$repo]
+Include = /etc/pacman.d/mirrorlist-arch" >> /etc/pacman.conf
+			done
+			pacman-key --populate archlinux
+			;;
+	esac ;
 	}
 
 newperms() { # Set special sudoers settings for install (or after).
 	sed -i "/#NOM_SCRIPT/d" /etc/sudoers
 	echo "$* #NOM_SCRIPT" >> /etc/sudoers ;}
 
-manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.
-	[ -f "/usr/bin/$1" ] || (
-	dialog --infobox "Installation de \"$1\"..." 4 50
-	cd /tmp || exit 1
-	rm -rf /tmp/"$1"*
-	curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/"$1".tar.gz &&
-	sudo -u "$name" tar -xvf "$1".tar.gz >/dev/null 2>&1 &&
-	cd "$1" &&
-	sudo -u "$name" makepkg --noconfirm -si >/dev/null 2>&1 || return 1
-	cd /tmp || return 1) ;}
+manualinstall() { # Installs $1 manually. Used only for AUR helper here.
+	# Should be run after repodir is created and var is set.
+	dialog --infobox "Installing \"$1\", an AUR helper..." 4 50
+	sudo -u "$name" mkdir -p "$repodir/$1"
+	sudo -u "$name" git clone --depth 1 "https://aur.archlinux.org/$1.git" "$repodir/$1" >/dev/null 2>&1 ||
+		{ cd "$repodir/$1" || return 1 ; sudo -u "$name" git pull --force origin master;}
+	cd "$repodir/$1"
+	sudo -u "$name" -D "$repodir/$1" makepkg --noconfirm -si >/dev/null 2>&1 || return 1
+}
+
 
 maininstall() { # Installs all needed programs from main repo.
 	dialog --title "Installation" --infobox "Installation de \`$1\` ($n sur $total). $1 $2" 5 70
