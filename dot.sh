@@ -158,15 +158,16 @@ installsuckless() { # Install dwm, dwmblocks, dmenu & st
 	dialog --infobox "Install de dwm et dwmblocks..." 4 60
 	cd "/home/$name/.local/src/dwm"
 	#sudo -u "$user" make clean install
-	sudo make clean install
+	sudo make clean install >/dev/null 2>&1
 	cd "/home/$name/.local/src/dwmblocks"
-	sudo make clean install
+	sudo make clean install >/dev/null 2>&1
 	dialog --infobox "Install de dmenu..." 4 60
 	cd "/home/$name/.local/src/dmenu"
-	sudo make clean install
+	sudo make clean install >/dev/null 2>&1
 	dialog --infobox "Install de st..." 4 60
 	cd "/home/$name/.local/src/st"
-	sudo make clean install
+	sudo make clean install >/dev/null 2>&1
+
 	}
 
 systembeepoff() { dialog --infobox "Suppression des beeps..." 10 50
