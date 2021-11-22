@@ -52,7 +52,7 @@ if [[ $(echo $(cat $themefile)) == "dark" ]]; then
 
 	setsid -f dunst
 
-	[ -f "$HOME/.local/share/white.jpg" ] && setbg "$HOME/docs/images/wallpapers/white_wood.jpg"
+	[ -f "$HOME/.local/share/white.jpg" ] && setbg "$HOME/.local/share/white.jpg"
 else
 	cd $HOME/.local/src/dwm-dark
 	sudo make clean install
