@@ -7,11 +7,11 @@ switch="$HOME/.local/bin/valeurredshift.txt"
 
 [[ ! -f "$switch" ]] && echo "jour" > "$switch"
 
-if [[ $(sed -n 1p ~/.local/bin/valeurredshift.txt) = jour ]]; then
-	$(sed -i 's/jour/nuit/g' ~/.scripts/mes_scripts/valeurredshift.txt)
+if [[ $(sed -n 1p "$switch") = jour ]]; then
+	$(sed -i 's/jour/nuit/g' "$switch")
 	$(exec redshift -P -O 4000)
 else
-	$(sed -i 's/nuit/jour/g' ~/.local/bin/valeurredshift.txt)
+	$(sed -i 's/nuit/jour/g' "$switch")
 	$(exec redshift -P -O 6500)
 fi
 
