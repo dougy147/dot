@@ -107,36 +107,37 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.7;
+float alpha = 0.8;
 float alphaOffset = 0.0;
 float alphaUnfocus;
 
+
+/* Dark Theme */
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#000000", /* black */
-	"#000000", /* red */
-	"#000000", /* green */
-	"#000000", /* yellow */
-	"#000000", /* blue */
-	"#000000", /* magenta */
-	"#000000", /* cyan */
-	"#ffffff", /* white */
-	"#000000", /* bright : black */
-	"#000000", /* red */
-	"#000000", /* green */
-	"#000000", /* yellow */
-	"#000000", /* blue */
-	"#000000", /* magenta */
-	"#000000", /* cyan */
-	"#ffffff", /* white */
+	"#ffffff", /* black */
+	"#ffffff", /* red */
+	"#ffffff", /* green */
+	"#ffffff", /* yellow */
+	"#ffffff", /* blue */
+	"#ffffff", /* magenta */
+	"#ffffff", /* cyan */
+	"#000000", /* white */
+	"#ffffff", /* bright : black */
+	"#ffffff", /* red */
+	"#ffffff", /* green */
+	"#ffffff", /* yellow */
+	"#ffffff", /* blue */
+	"#ffffff", /* magenta */
+	"#ffffff", /* cyan */
+	"#000000", /* white */
 	[255] = 0,
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#000000", /* 256 -> cursor */
-	"#000000", /* 257 -> rev cursor*/
-	"#ffffff", /* background */
-	"#000000", /* foreground */
+	"#ffffff", /* 256 -> cursor */
+	"#ffffff", /* 257 -> rev cursor*/
+	"#000000", /* background */
+	"#ffffff", /* foreground */
 };
-
 
 /*
  * Default colors (colorname index)
