@@ -141,7 +141,7 @@ putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwrit
 	[ ! -d "$2" ] && mkdir -p "$2"
 	chown "$name":wheel "$dir" "$2"
 	#sudo -u "$name" git clone --recursive -b "$branch" --depth 1 --recurse-submodules "$1" "$dir" >/dev/null 2>&1
-	sudo -u "$name" git clone --recursive --depth 1 --recurse-submodules "$1" "$dir" >/dev/null 2>&1
+	sudo -u "$name" git clone "$1" "$dir" >/dev/null 2>&1
 	sudo -u "$name" cp -rfT "$dir" "$2"
 	}
 
@@ -213,7 +213,8 @@ dialog --title "Installation" --infobox "Installation de \`libxft-bgra\` pour ac
 yes | sudo -u "$name" $aurhelper -S libxft-bgra-git >/dev/null 2>&1
 
 # Install the dotfiles in the user's home directory
-putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
+#putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
+putgitrepo "$dotfilesrepo" "/home/$name"
 rm -f "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
 # Create default urls file if none exists.
 #[ ! -f "/home/$name/.config/newsboat/urls" ] && echo "http://lukesmith.xyz/rss.xml
