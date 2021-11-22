@@ -4,7 +4,7 @@
 
 themefile="$HOME/.local/bin/theme.txt"
 
-[ ! -f $themefile ] && echo "light" > "$themefile"
+[ ! -f $themefile ] && echo "dark" > "$themefile"
 
 if [[ $(echo $(cat $themefile)) == "dark" ]]; then
 	cd $HOME/.local/src/dwm
@@ -52,7 +52,7 @@ if [[ $(echo $(cat $themefile)) == "dark" ]]; then
 
 	setsid -f dunst
 
-	[ -f "$HOME/.local/share/white.jpg ] && setbg "$HOME/docs/images/wallpapers/white_wood.jpg"
+	[ -f "$HOME/.local/share/white.jpg" ] && setbg "$HOME/docs/images/wallpapers/white_wood.jpg"
 else
 	cd $HOME/.local/src/dwm-dark
 	sudo make clean install
@@ -99,5 +99,5 @@ else
 
 	setsid -f dunst
 
-	[ -f "$HOME/.local/share/dark.jpeg ] && setbg "$HOME/.local/share/dark.jpeg"
+	[ -f "$HOME/.local/share/dark.jpeg" ] && setbg "$HOME/.local/share/dark.jpeg"
 fi
