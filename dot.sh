@@ -256,7 +256,7 @@ yes | sudo -u "$name" $aurhelper -S libxft-bgra-git >/dev/null 2>&1
 # Install the dotfiles in the user's home directory
 putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
 #putgitrepo "$dotfilesrepo" "/home/$name"
-rm -f "/home/$name/dot.sh" "/home/$name/programmes.csv"
+rm -f "/home/$name/dot.sh" "/home/$name/programmes.csv" "/home/$name/README.md"
 
 # Create default urls file if none exists.
 #[ ! -f "/home/$name/.config/newsboat/urls" ] && echo "http://lukesmith.xyz/rss.xml
