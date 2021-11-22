@@ -270,6 +270,9 @@ rm -f "/home/$name/dot.sh" "/home/$name/programmes.csv"
 # Installer dwm, dwmblocks, dmenu & st
 installsuckless
 
+# Setting colors
+settingcolors
+
 # Most important command! Get rid of the beep!
 systembeepoff
 
