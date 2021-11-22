@@ -11,45 +11,86 @@ call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
-Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'jreybert/vimagit'
 Plug 'lukesmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-commentary'
-Plug 'kovetskiy/sxhkd-vim'
 Plug 'ap/vim-css-color'
-Plug 'inkarkat/vim-AdvancedSorters'
-Plug 'arcticicestudio/nord-vim'
 call plug#end()
 
-set bg=light
+" Perso : let Airline Theme be monochrome
+let g:airline_theme='monochrome'
+" Perso : change highlight color
+" To see how it works : launch :so $VIMRUNTIME/syntax/hitest.vim
+hi Visual ctermbg=black ctermfg=white gui=none
+"hi Visual term=reverse cterm=reverse gui=none
+hi SpecialKey cterm=bold ctermfg=black gui=none
+hi Directory ctermfg=black gui=none
+hi Question ctermfg=black gui=none
+hi MoreMsg ctermfg=black gui=none
+hi Type ctermfg=black gui=none
+hi Search ctermbg=black ctermfg=white gui=none
+hi Title ctermfg=black gui=none
+hi WarningMsg ctermfg=black gui=none
+hi WildMenu ctermbg=black ctermfg=white gui=none
+hi DiffAdd ctermbg=black ctermfg=white gui=none
+hi DiffChange ctermbg=black ctermfg=white gui=none
+hi DiffDelete ctermbg=black ctermfg=white gui=none
+hi DiffText ctermbg=black ctermfg=white gui=none
+hi SignColumn ctermbg=black ctermfg=white gui=none
+hi SpellBad ctermbg=black ctermfg=white gui=none
+hi SpellCap ctermbg=black ctermfg=white gui=none
+hi SpellRare ctermbg=black ctermfg=white gui=none
+hi SpellLocal ctermbg=black ctermfg=white gui=none
+hi Pmenu ctermbg=black ctermfg=white gui=none
+hi PmenuSel ctermbg=black ctermfg=white gui=none
+hi ColorColumn ctermbg=black ctermfg=white gui=none
+hi RedrawDebugClear ctermbg=black ctermfg=white gui=none
+hi RedrawDebugComposed ctermbg=black ctermfg=white gui=none
+hi RedrawDebugRecompose ctermbg=black ctermfg=white gui=none
+hi MatchParen ctermbg=black ctermfg=white gui=none
+hi NvimInternalError ctermbg=black ctermfg=white gui=none
+hi Comment cterm=reverse gui=none
+hi Special ctermfg=black gui=none
+hi PreProc ctermfg=black gui=none
+hi Underlined ctermfg=black gui=none
+hi Todo ctermbg=black ctermfg=white gui=none
+
+
+
+
+set title
+"set bg=light
 set go=a
 set mouse=a
 set nohlsearch
 set clipboard+=unnamedplus
+set noshowmode
+set noruler
+set laststatus=0
+set noshowcmd
 
-" Change statusbar theme with airline
-let g:airline_theme='monochrome'
-
+" Disable relativenumber :
+	autocmd VimEnter * setlocal norelativenumber
 " Some basics:
 	nnoremap c "_c
 	set nocompatible
 	filetype plugin on
-	syntax on
+	" Perso : j'ai mis off pour la syntax
+	syntax off
 	set encoding=utf-8
 	set number relativenumber
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
+" Perform dot commands over visual blocks:
+	vnoremap . :normal .<CR>
 " Goyo plugin makes text more readable when writing prose:
 	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
-
 " Spell-check set to <leader>o, 'o' for 'orthography':
-	map <leader>o :setlocal spell! spelllang=en_us<CR>
-
+	map <leader>o :setlocal spell! spelllang=fr<CR>
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 	set splitbelow splitright
 
@@ -63,11 +104,11 @@ let g:airline_theme='monochrome'
     endif
 
 " vimling:
-	nm <leader>d :call ToggleDeadKeys()<CR>
-	imap <leader>d <esc>:call ToggleDeadKeys()<CR>a
-	nm <leader>i :call ToggleIPA()<CR>
-	imap <leader>i <esc>:call ToggleIPA()<CR>a
-	nm <leader>q :call ToggleProse()<CR>
+	nm <leader><leader>d :call ToggleDeadKeys()<CR>
+	imap <leader><leader>d <esc>:call ToggleDeadKeys()<CR>a
+	nm <leader><leader>i :call ToggleIPA()<CR>
+	imap <leader><leader>i <esc>:call ToggleIPA()<CR>a
+	nm <leader><leader>q :call ToggleProse()<CR>
 
 " Shortcutting split navigation, saving a keypress:
 	map <C-h> <C-w>h
@@ -79,7 +120,7 @@ let g:airline_theme='monochrome'
 	map Q gq
 
 " Check file in shellcheck:
-	map <leader>s :!clear && shellcheck %<CR>
+	map <leader>s :!clear && shellcheck -x %<CR>
 
 " Open my bibliography file in split
 	map <leader>b :vsp<space>$BIB<CR>
@@ -89,7 +130,7 @@ let g:airline_theme='monochrome'
 	nnoremap S :%s//g<Left><Left>
 
 " Compile document, be it groff/LaTeX/markdown/etc.
-	map <leader>c :w! \| !compiler <c-r>%<CR>
+	map <leader>c :w! \| !compiler "<c-r>%"<CR>
 
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout <c-r>%<CR><CR>
@@ -108,7 +149,7 @@ let g:airline_theme='monochrome'
 " Save file as sudo on files that require root permission
 	cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
-" Enable Goyo by default for mutt writting
+" Enable Goyo by default for mutt writing
 	autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
 	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=light
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
@@ -116,20 +157,39 @@ let g:airline_theme='monochrome'
 
 " Automatically deletes all trailing whitespace and newlines at end of file on save.
 	autocmd BufWritePre * %s/\s\+$//e
-	autocmd BufWritepre * %s/\n\+\%$//e
+	autocmd BufWritePre * %s/\n\+\%$//e
+	autocmd BufWritePre *.[ch] %s/\%$/\r/e
 
 " When shortcut files are updated, renew bash and ranger configs with new material:
-	autocmd BufWritePost files,directories !shortcuts
+	autocmd BufWritePost bm-files,bm-dirs !shortcuts
 " Run xrdb whenever Xdefaults or Xresources are updated.
-	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
-" Update binds when sxhkdrc is updated.
-	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+	autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
+	autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
+" Recompile dwmblocks on config edit.
+	autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid -f dwmblocks }
 
 " Turns off highlighting on the bits of code that are changed, so the line that is changed is highlighted but the actual text that has changed stands out on the line and is readable.
 if &diff
     highlight! link DiffText MatchParen
 endif
 
-" Thème couleur daltonien :
+" Function for toggling the bottom statusbar:
+let s:hidden_all = 1
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+    endif
+endfunction
+nnoremap <leader>h :call ToggleHiddenAll()<CR>
 
-colorscheme nord
+syntax off

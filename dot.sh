@@ -173,6 +173,11 @@ installsuckless() { # Install dwm, dwmblocks, dmenu & st
 	cd -
 	}
 
+
+systembeepoff() { dialog --infobox "Suppression des beeps..." 10 50
+	rmmod pcspkr
+	echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf ;}
+
 settingcolors() { # Changer les couleurs de surlignage -> monochrome
 	dialog --infobox "Ajustement des couleurs..." 4 60
 	cd "/usr/share/zsh/plugins/fast-syntax-highlighting/"
@@ -184,12 +189,6 @@ settingcolors() { # Changer les couleurs de surlignage -> monochrome
 	ln -s "/home/$name/.config/shell/colors/default.ini" .
 	cd -
 	}
-
-
-
-systembeepoff() { dialog --infobox "Suppression des beeps..." 10 50
-	rmmod pcspkr
-	echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf ;}
 
 finalize(){ \
 	dialog --infobox "Préparation du message de bienvenue..." 4 50
@@ -270,15 +269,15 @@ rm -f "/home/$name/dot.sh" "/home/$name/programmes.csv"
 # Installer dwm, dwmblocks, dmenu & st
 installsuckless
 
-# Setting colors
-settingcolors
-
 # Most important command! Get rid of the beep!
 systembeepoff
 
 # Make zsh the default shell for the user.
 chsh -s /bin/zsh "$name" >/dev/null 2>&1
 sudo -u "$name" mkdir -p "/home/$name/.cache/zsh/"
+
+# Setting colors
+settingcolors
 
 # dbus UUID must be generated for Artix runit.
 dbus-uuidgen > /var/lib/dbus/machine-id
