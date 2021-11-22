@@ -233,8 +233,8 @@ dialog --title "Installation" --infobox "Installation de \`libxft-bgra\` pour ac
 yes | sudo -u "$name" $aurhelper -S libxft-bgra-git >/dev/null 2>&1
 
 # Install the dotfiles in the user's home directory
-#putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
-putgitrepo "$dotfilesrepo" "/home/$name"
+putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
+#putgitrepo "$dotfilesrepo" "/home/$name"
 rm -f "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
 # Create default urls file if none exists.
 #[ ! -f "/home/$name/.config/newsboat/urls" ] && echo "http://lukesmith.xyz/rss.xml
