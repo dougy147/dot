@@ -32,7 +32,7 @@ error() { printf "%s\n" "$1" >&2; exit 1; }
 welcomemsg() { \
 	dialog --title "Bienvenue!" --msgbox "Auto-installation (/!\ test!!)\\n\\nCe script est une bifurcation de LARBs créé par Luke Smith (http://github.com/LukeSmithxyz)\\n\\nIl va installer l'environnement de bureau Linux.\\n\\n-dougy147" 10 60
 
-	dialog --colors --title "Important !" --yes-label "Prêt!" --no-label "Retour..." --yesno "Assurez-vous que les paquets et keyrings de votre ordinateur sont à jour.\\n\\nSi ce n'est pas le cas, l'installation de certains programmes risque d'échouer." 8 70
+	dialog --colors --title "Important !" --yes-label "Prêt!" --no-label "Retour..." --yesno "Assurez-vous que les paquets et keyrings de votre ordinateur sont à jour.\\n\\nSi ce n'est pas le cas, l'installation de certains \\n\\nprogrammes risque d'échouer." 10 60
 	}
 
 getuserandpass() { \
@@ -176,7 +176,7 @@ systembeepoff() { dialog --infobox "Suppression des beeps..." 10 50
 
 finalize(){ \
 	dialog --infobox "Préparation du message de bienvenue..." 4 50
-	dialog --title "Terminé!" --msgbox "Félicitations, tout est en place !\\n\\nPour profiter de votre nouvel environnement, déconnectez-vous de la session actuelle puis logguez-vous avec l'utilisateur créé. Si l'environnement graphique ne se lance pas, utilisez la commande \"startx\".\\n\\n dougy147" 12 80
+	dialog --title "Terminé!" --msgbox "Félicitations, tout est en place !\\n\\nPour profiter de votre nouvel environnement, déconnectez-vous de la session actuelle puis logguez-vous avec l'utilisateur créé. Si l'environnement graphique ne se lance pas, utilisez la commande \"startx\".\\n\\n-dougy147" 12 80
 	}
 
 ### THE ACTUAL SCRIPT ###
