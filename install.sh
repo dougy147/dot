@@ -25,7 +25,7 @@ esac done
 [ -z "$dotfilesrepo" ] && dotfilesrepo="https://github.com/dougy147/dot.git"
 [ -z "$progsfile" ] && progsfile="https://raw.githubusercontent.com/dougy147/dot/main/programmes.csv"
 [ -z "$aurhelper" ] && aurhelper="yay"
-[ -z "$repobranch" ] && repobranch="master"
+[ -z "$repobranch" ] && repobranch="main"
 
 ### FUNCTIONS ###
 
@@ -101,7 +101,7 @@ gitmakeinstall() {
 	progname="$(basename "$1" .git)"
 	dir="$repodir/$progname"
 	dialog --title "Installation" --infobox "Installation de \`$progname\` ($n / $total) via \`git\` et \`make\`. $(basename "$1") $2" 5 70
-	sudo -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return 1 ; sudo -u "$name" git pull --force origin master;}
+	sudo -u "$name" git clone --depth 1 "$1" "$dir" >/dev/null 2>&1 || { cd "$dir" || return 1 ; sudo -u "$name" git pull --force origin main;}
 	cd "$dir" || exit 1
 	make >/dev/null 2>&1
 	make install >/dev/null 2>&1
@@ -136,13 +136,24 @@ installationloop() { \
 
 putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwriting conflicts
 	dialog --infobox "Téléchargement et installation des fichiers de configurations (dotfiles)..." 4 60
-	[ -z "$3" ] && branch="master" || branch="$repobranch"
+	[ -z "$3" ] && branch="main" || branch="$repobranch"
 	dir=$(mktemp -d)
 	[ ! -d "$2" ] && mkdir -p "$2"
 	chown "$name":wheel "$dir" "$2"
-	#sudo -u "$name" git clone --recursive -b "$branch" --depth 1 --recurse-submodules "$1" "$dir" >/dev/null 2>&1
-	sudo -u "$name" git clone --recursive --depth 1 --recurse-submodules "$1" "$dir" >/dev/null 2>&1
+	sudo -u "$name" git clone --recursive -b "$branch" --depth 1 --recurse-submodules "$1" "$dir" >/dev/null 2>&1
+	#sudo -u "$name" git clone --recursive --depth 1 --recurse-submodules "$1" "$dir" >/dev/null 2>&1
 	sudo -u "$name" cp -rfT "$dir" "$2"
+	}
+
+installsuckless() {#Install st, dwm, dmenu, dwmblocks
+	cd "/home/$name/.local/src/dwm"
+	sudo -u "$user" make install
+	cd "/home/$name/.local/src/dwmblocks"
+	sudo -u "$user" make install
+	cd "/home/$name/.local/src/dmenu"
+	sudo -u "$user" make install
+	cd "/home/$name/.local/src/st"
+	sudo -u "$user" make install
 	}
 
 systembeepoff() { dialog --infobox "Suppression des beeps..." 10 50
@@ -224,14 +235,7 @@ rm -f "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
 #git update-index --assume-unchanged "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
 
 # Installer dwm, dwmblocks, dmenu & st
-cd "/home/$name/.local/src/dwm"
-sudo -u "$user" make install
-cd "/home/$name/.local/src/dwmblocks"
-sudo -u "$user" make install
-cd "/home/$name/.local/src/dmenu"
-sudo -u "$user" make install
-cd "/home/$name/.local/src/st"
-sudo -u "$user" make install
+installsuckless
 
 # Most important command! Get rid of the beep!
 systembeepoff
