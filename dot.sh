@@ -157,15 +157,16 @@ putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwrit
 installsuckless() { # Install dwm, dwmblocks, dmenu & st
 	dialog --infobox "Install de dwm et dwmblocks..." 4 60
 	cd "/home/$name/.local/src/dwm"
-	sudo -u "$user" make clean install
+	#sudo -u "$user" make clean install
+	sudo make clean install
 	cd "/home/$name/.local/src/dwmblocks"
-	sudo -u "$user" make clean install
+	sudo make clean install
 	dialog --infobox "Install de dmenu..." 4 60
 	cd "/home/$name/.local/src/dmenu"
-	sudo -u "$user" make clean install
+	sudo make clean install
 	dialog --infobox "Install de st..." 4 60
 	cd "/home/$name/.local/src/st"
-	sudo -u "$user" make clean install
+	sudo make clean install
 	}
 
 systembeepoff() { dialog --infobox "Suppression des beeps..." 10 50
