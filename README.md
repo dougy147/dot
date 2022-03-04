@@ -4,7 +4,7 @@
 
 
 ```
-curl -LO dougy147.com/dot.sh
+curl -LO dougy147.com/dot/dot.sh
 sh ./dot.sh
 ```
 
