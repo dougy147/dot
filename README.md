@@ -7,7 +7,7 @@
 Sur une distribution Arch fraîchement installée :
 
 ```
-curl -LO dougy147.com/dot/dot.sh
+curl -LO dougy147.com/dot.sh
 sh ./dot.sh
 ```
 
