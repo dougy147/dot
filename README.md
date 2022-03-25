@@ -4,7 +4,7 @@
 
 ## Installation
 
-Sur une distribution Arch fraîchement installée :
+Sur une distribution Arch, en `root` :
 
 ```
 curl -LO dougy147.com/dot.sh

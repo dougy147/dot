@@ -65,3 +65,4 @@ A,epub-thumbnailer-git,"sert à la prévisualisation des documents epub dans lf.
 ,wkhtmltopdf,"sert à la prévisualisation des fichiers HTML dans lf."
 ,ueberzug,"ajoute l'affichage des images en combinaison de X11."
 ,bmon,"est un moniteur de données réseau (up/down)."
+,rsync,"est un outil de copie de fichiers (local ou réseau)."
