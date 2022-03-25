@@ -20,7 +20,7 @@ HISTFILE=~/.cache/zsh/history
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
 
 # Perso : add my colors to less, man, etc.
-[[ -f ~/.config/shell/lesscolors ]] && . ~/.config/shell/lesscolors
+#[[ -f ~/.config/shell/lesscolors ]] && . ~/.config/shell/lesscolors
 
 # Basic auto/tab complete:
 autoload -U compinit
