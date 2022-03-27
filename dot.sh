@@ -3,7 +3,7 @@
 # forked from : Luke's Auto Rice Boostrapping Script (LARBS)
 # License: GNU GPLv3
 
-# Installer l'environnement graphique automatiquement
+# Installe un environnement graphique automatiquement sur les distributions Arch
 
 # Credits to Luke Smith
 
@@ -30,9 +30,9 @@ installpkg(){ pacman --noconfirm --needed -S "$1" >/dev/null 2>&1 ;}
 error() { printf "%s\n" "$1" >&2; exit 1; }
 
 welcomemsg() { \
-	dialog --title "Bienvenue!" --msgbox "Auto-installation (/!\ test!!)\\n\\nCe script est une bifurcation de LARBs créé par Luke Smith (http://github.com/LukeSmithxyz)\\n\\nIl va installer l'environnement de bureau Linux.\\n\\n-dougy147" 10 60
+	dialog --title "Bienvenue!" --msgbox "Auto-installation\\n\\ndOt est une bifurcation de LARBs écrit par Luke Smith (https://github.com/LukeSmithxyz)\\n\\ndOt installe votre bureau et quelques extras.\\n\\n-dougy147" 10 60
 
-	dialog --colors --title "Important !" --yes-label "Prêt!" --no-label "Retour..." --yesno "Assurez-vous que les paquets et keyrings de votre ordinateur sont à jour.\\n\\nSi ce n'est pas le cas, l'installation de certains \\n\\nprogrammes risque d'échouer." 10 60
+	dialog --colors --title "Important !" --yes-label "Prêt!" --no-label "Retour..." --yesno "Assurez-vous que les paquets et keyrings de votre ordinateur sont à jour.\\n\\nSi ce n'est pas le cas, l'installation de certains programmes risque d'échouer." 10 60
 	}
 
 getuserandpass() { \
@@ -51,7 +51,7 @@ getuserandpass() { \
 
 usercheck() { \
 	! { id -u "$name" >/dev/null 2>&1; } ||
-	dialog --colors --title "ATTENTION!" --yes-label "CONTINUER" --no-label "Retour..." --yesno "L'utilisateur \`$name\` existe déjà. 'NOM_SCRIPT' peut tout de même être installer, TOUTEFOIS il \\Zbremplacera\\Zn les fichiers de configurations qui entreraient en conflit avec lui.\\n\\n'NOM_SCRIPT' \\Zbne va pas\\Zn remplacer vos fichiers personnels (documents, vidéos, etc.). Cliquez sur <CONTINUER> si vous acceptez.\\n\\nNotez que le mot de passe pour l'utilisateur $name' sera désormais celui que vous aurez entrer lors de l'installation de 'NOM_SCRIPT'." 14 70
+	dialog --colors --title "ATTENTION!" --yes-label "CONTINUER" --no-label "Retour..." --yesno "L'utilisateur \`$name\` existe déjà. dOt peut tout de même être installé, TOUTEFOIS il \\Zbremplacera\\Zn les fichiers de configurations qui entreraient en conflit avec lui.\\n\\ndOt \\Zbne va pas\\Zn remplacer vos fichiers personnels (documents, vidéos, etc.). Cliquez sur <CONTINUER> si vous acceptez.\\n\\nNotez que le mot de passe pour l'utilisateur $name' sera désormais celui que vous aurez entré lors de l'installation de dOt." 14 70
 	}
 
 preinstallmsg() { \
@@ -87,12 +87,12 @@ Include = /etc/pacman.d/mirrorlist-arch" >> /etc/pacman.conf
 	}
 
 newperms() { # Set special sudoers settings for install (or after).
-	sed -i "/#NOM_SCRIPT/d" /etc/sudoers
-	echo "$* #NOM_SCRIPT" >> /etc/sudoers ;}
+	sed -i "/#dOt/d" /etc/sudoers
+	echo "$* #dOt" >> /etc/sudoers ;}
 
 manualinstall() { # Installs $1 manually. Used only for AUR helper here.
 	# Should be run after repodir is created and var is set.
-	dialog --infobox "Installing \"$1\", an AUR helper..." 4 50
+	dialog --infobox "Installation de \"$1\", pour les paquets AUR..." 4 50
 	sudo -u "$name" mkdir -p "$repodir/$1"
 	sudo -u "$name" git clone --depth 1 "https://aur.archlinux.org/$1.git" "$repodir/$1" >/dev/null 2>&1 ||
 		{ cd "$repodir/$1" || return 1 ; sudo -u "$name" git pull --force origin master;}
@@ -155,7 +155,7 @@ putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwrit
 	}
 
 installsuckless() { # Install dwm, dwmblocks, dmenu & st
-	dialog --infobox "Install de dwm et dwmblocks..." 4 60
+	dialog --infobox "Installation de dwm et dwmblocks..." 4 60
 	cd "/home/$name/.local/src/dwm"
 	#sudo -u "$user" make clean install
 	sudo make clean install >/dev/null 2>&1
@@ -304,7 +304,7 @@ pkill -15 -x 'pulseaudio'; sudo -u "$name" pulseaudio --start
 
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
-newperms "%wheel ALL=(ALL) ALL #NOM_SCRIPT
+newperms "%wheel ALL=(ALL) ALL #dOt
 %wheel ALL=(ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/wifi-menu,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/packer -Syu,/usr/bin/packer -Syyu,/usr/bin/systemctl restart NetworkManager,/usr/bin/rc-service NetworkManager restart,/usr/bin/pacman -Syyu --noconfirm,/usr/bin/loadkeys,/usr/bin/paru,/usr/bin/pacman -Syyuw --noconfirm"
 
 # Last message! Install complete!
