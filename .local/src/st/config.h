@@ -107,46 +107,80 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 1.0;
+float alpha = 0.8;
 float alphaOffset = 0.0;
 float alphaUnfocus;
 
-/* Terminal colors (16 first used in escape sequence) */
+
+/* dark theme */
+/* terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#000000", /* black */
-	"#000000", /* red */
-	"#000000", /* green */
-	"#000000", /* yellow */
-	"#000000", /* blue */
-	"#000000", /* magenta */
-	"#000000", /* cyan */
-	"#ffffff", /* white */
-	"#000000", /* bright : black */
-	"#000000", /* red */
-	"#000000", /* green */
-	"#000000", /* yellow */
-	"#000000", /* blue */
-	"#000000", /* magenta */
-	"#000000", /* cyan */
-	"#ffffff", /* white */
+	"#2a2e38", /* hard contrast: #1d2021 / soft contrast: #32302f */
+	"#ff665c",
+	"#7bc275",
+	"#fcce7b",
+	"#5cefff",
+	"#c57bdb",
+	"#51afef",
+	"#bbc2cf",
+	"#484854",
+	"#ff665c",
+	"#7bc275",
+	"#fcce7b",
+	"#5cefff",
+	"#c57bdb",
+	"#51afef",
+	"#bbc2cf",
 	[255] = 0,
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#000000", /* 256 -> cursor */
-	"#000000", /* 257 -> rev cursor*/
-	"#ffffff", /* background */
-	"#000000", /* foreground */
+	"#bbc2cf", /* 256 -> cursor */
+	"#bbc2cf", /* 257 -> rev cursor*/
+	"#242730", /* 258 -> bg */
+	"#bbc2cf", /* 259 -> fg */
 };
 
+/* dark theme */
+/* terminal colors (16 first used in escape sequence) */
+/* static const char *colorname[] = { */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#000000", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#ffffff", */
+/* 	"#000000", */
+/* 	[255] = 0, */
+/* 	"#ffffff",  */
+/* 	"#ffffff", */
+/* 	"#000000", */
+/* 	"#ffffff", */
+/* }; */
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 257;
-unsigned int defaultbg = 256;
-unsigned int defaultcs = 257;
+unsigned int defaultfg = 259;
+unsigned int defaultbg = 258;
+unsigned int defaultcs = 256;
 unsigned int defaultrcs = 257;
 unsigned int background = 258;
+
+/* monochrome default colors */
+/* unsigned int defaultfg = 257; */
+/* unsigned int defaultbg = 256; */
+/* unsigned int defaultcs = 257; */
+/* unsigned int defaultrcs = 257; */
+/* unsigned int background = 258; */
 
 /*
  * Default shape of cursor
