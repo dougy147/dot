@@ -10,6 +10,10 @@ Sur une distribution Arch, en `root` :
 curl -LO dougy147.com/dot.sh
 sh ./dot.sh
 ```
+## Exemple
 
+![](https://dougy147.com/images/dot.gif)
+
+## Crédit
 
 Idée originale : [Luke Smith](https://github.com/LukeSmithxyz/voidrice)
