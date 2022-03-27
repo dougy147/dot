@@ -17,15 +17,14 @@ static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
 static char *fonts[]          = { "monospace:size=12", "JoyPixels:pixelsize=10:antialias=true:autohint=true"  };
 
-/* Dark Theme */
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#ffffff";
-static char selbgcolor[]            = "#474554";
-
-
+/* Light Theme */
+static char normbgcolor[]           = "#ffffff";
+static char normbordercolor[]       = "#d0d0d0";
+static char normfgcolor[]           = "#000000";
+static char selfgcolor[]            = "#000000";
+static char selbordercolor[]        = "#000000";
+/*static char selbgcolor[]            = "#dadde2";*/
+static char selbgcolor[]            = "#d0d0d0";
 
 static char *colors[][3] = {
        /*               fg           bg           border   */

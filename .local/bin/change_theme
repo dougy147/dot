@@ -4,16 +4,16 @@
 
 themefile="$HOME/.local/bin/theme.txt"
 
-[ ! -f $themefile ] && echo "light" > "$themefile"
+[ ! -f $themefile ] && echo "dark" > "$themefile"
 
 if [[ $(echo $(cat $themefile)) == "dark" ]]; then
-	cd $HOME/.local/src/dwm
+	cd $HOME/.local/src/dwm-light
 	sudo make clean install
 	cd -
-	cd $HOME/.local/src/st
+	cd $HOME/.local/src/st-light
 	sudo make clean install
 	cd -
-	cd $HOME/.local/src/dmenu
+	cd $HOME/.local/src/dmenu-light
 	sudo make clean install
 	cd -
 	kill -HUP "$(pgrep -u "$USER" "\bdwm$")"
@@ -54,13 +54,13 @@ if [[ $(echo $(cat $themefile)) == "dark" ]]; then
 
 	[ -f "$HOME/.local/share/white.jpg" ] && setbg "$HOME/.local/share/white.jpg"
 else
-	cd $HOME/.local/src/dwm-dark
+	cd $HOME/.local/src/dwm
 	sudo make clean install
 	cd -
-	cd $HOME/.local/src/st-dark
+	cd $HOME/.local/src/st
 	sudo make clean install
 	cd -
-	cd $HOME/.local/src/dmenu-dark
+	cd $HOME/.local/src/dmenu
 	sudo make clean install
 	cd -
 	kill -HUP "$(pgrep -u "$USER" "\bdwm$")"
