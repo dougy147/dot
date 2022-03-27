@@ -180,14 +180,14 @@ systembeepoff() { dialog --infobox "Suppression des beeps..." 10 50
 
 settingcolors() { # Changer les couleurs de surlignage -> monochrome
 	dialog --infobox "Ajustement des couleurs..." 4 60
-	cd "/usr/share/zsh/plugins/fast-syntax-highlighting/"
-	cp fast-highlighting fast-highlighting.bak
-	ln -s "/home/$name/.config/shell/colors/fast-highlighting" .
-	cd -
-	cd "/usr/share/zsh/plugins/fast-syntax-highlighting/themes"
-	cp default.ini default.ini.bak
-	ln -s "/home/$name/.config/shell/colors/default.ini" .
-	cd -
+	#cd "/usr/share/zsh/plugins/fast-syntax-highlighting/"
+	#cp fast-highlighting fast-highlighting.bak
+	#ln -s "/home/$name/.config/shell/colors/fast-highlighting" .
+	#cd -
+	#cd "/usr/share/zsh/plugins/fast-syntax-highlighting/themes"
+	#cp default.ini default.ini.bak
+	#ln -s "/home/$name/.config/shell/colors/default.ini" .
+	#cd -
 	}
 
 finalize(){ \
