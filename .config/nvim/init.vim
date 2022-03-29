@@ -22,41 +22,41 @@ call plug#end()
 
 " Perso : let Airline Theme be monochrome
 let g:airline_theme='monochrome'
-" Perso : change highlight color
-" To see how it works : launch :so $VIMRUNTIME/syntax/hitest.vim
-hi Visual ctermbg=black ctermfg=white gui=none
-"hi Visual term=reverse cterm=reverse gui=none
-hi SpecialKey cterm=bold ctermfg=black gui=none
-hi Directory ctermfg=black gui=none
-hi Question ctermfg=black gui=none
-hi MoreMsg ctermfg=black gui=none
-hi Type ctermfg=black gui=none
-hi Search ctermbg=black ctermfg=white gui=none
-hi Title ctermfg=black gui=none
-hi WarningMsg ctermfg=black gui=none
-hi WildMenu ctermbg=black ctermfg=white gui=none
-hi DiffAdd ctermbg=black ctermfg=white gui=none
-hi DiffChange ctermbg=black ctermfg=white gui=none
-hi DiffDelete ctermbg=black ctermfg=white gui=none
-hi DiffText ctermbg=black ctermfg=white gui=none
-hi SignColumn ctermbg=black ctermfg=white gui=none
-hi SpellBad ctermbg=black ctermfg=white gui=none
-hi SpellCap ctermbg=black ctermfg=white gui=none
-hi SpellRare ctermbg=black ctermfg=white gui=none
-hi SpellLocal ctermbg=black ctermfg=white gui=none
-hi Pmenu ctermbg=black ctermfg=white gui=none
-hi PmenuSel ctermbg=black ctermfg=white gui=none
-hi ColorColumn ctermbg=black ctermfg=white gui=none
-hi RedrawDebugClear ctermbg=black ctermfg=white gui=none
-hi RedrawDebugComposed ctermbg=black ctermfg=white gui=none
-hi RedrawDebugRecompose ctermbg=black ctermfg=white gui=none
-hi MatchParen ctermbg=black ctermfg=white gui=none
-hi NvimInternalError ctermbg=black ctermfg=white gui=none
-hi Comment cterm=reverse gui=none
-hi Special ctermfg=black gui=none
-hi PreProc ctermfg=black gui=none
-hi Underlined ctermfg=black gui=none
-hi Todo ctermbg=black ctermfg=white gui=none
+"" Perso : change highlight color
+"" To see how it works : launch :so $VIMRUNTIME/syntax/hitest.vim
+"hi Visual ctermbg=black ctermfg=white gui=none
+""hi Visual term=reverse cterm=reverse gui=none
+"hi SpecialKey cterm=bold ctermfg=black gui=none
+"hi Directory ctermfg=black gui=none
+"hi Question ctermfg=black gui=none
+"hi MoreMsg ctermfg=black gui=none
+"hi Type ctermfg=black gui=none
+"hi Search ctermbg=black ctermfg=white gui=none
+"hi Title ctermfg=black gui=none
+"hi WarningMsg ctermfg=black gui=none
+"hi WildMenu ctermbg=black ctermfg=white gui=none
+"hi DiffAdd ctermbg=black ctermfg=white gui=none
+"hi DiffChange ctermbg=black ctermfg=white gui=none
+"hi DiffDelete ctermbg=black ctermfg=white gui=none
+"hi DiffText ctermbg=black ctermfg=white gui=none
+"hi SignColumn ctermbg=black ctermfg=white gui=none
+"hi SpellBad ctermbg=black ctermfg=white gui=none
+"hi SpellCap ctermbg=black ctermfg=white gui=none
+"hi SpellRare ctermbg=black ctermfg=white gui=none
+"hi SpellLocal ctermbg=black ctermfg=white gui=none
+"hi Pmenu ctermbg=black ctermfg=white gui=none
+"hi PmenuSel ctermbg=black ctermfg=white gui=none
+"hi ColorColumn ctermbg=black ctermfg=white gui=none
+"hi RedrawDebugClear ctermbg=black ctermfg=white gui=none
+"hi RedrawDebugComposed ctermbg=black ctermfg=white gui=none
+"hi RedrawDebugRecompose ctermbg=black ctermfg=white gui=none
+"hi MatchParen ctermbg=black ctermfg=white gui=none
+"hi NvimInternalError ctermbg=black ctermfg=white gui=none
+"hi Comment cterm=reverse gui=none
+"hi Special ctermfg=black gui=none
+"hi PreProc ctermfg=black gui=none
+"hi Underlined ctermfg=black gui=none
+"hi Todo ctermbg=black ctermfg=white gui=none
 
 
 
@@ -193,4 +193,4 @@ function! ToggleHiddenAll()
 endfunction
 nnoremap <leader>h :call ToggleHiddenAll()<CR>
 
-syntax off
+syntax on
