@@ -250,7 +250,7 @@ static Key keys[] = {
 	{ MODKEY,			XK_Insert,	spawn,		SHCMD("xdotool type $(grep -v '^#' ~/.local/share/larbs/snippets | dmenu -i -l 50 | cut -d' ' -f1)") },
 
 	{ MODKEY,			XK_asterisk,	spawn,		SHCMD("capslock") },
-	{ MODKEY,			XK_F1,		spawn,		SHCMD("groff -mom /usr/local/share/dwm/larbs.mom -Tpdf | zathura -") },
+	{ MODKEY,			XK_F1,		spawn,		SHCMD("groff -mom /usr/local/share/dwm/dot.mom -Tpdf | zathura -") },
 	{ MODKEY,			XK_F2,		spawn,		SHCMD("touchpad") },
 	{ MODKEY,			XK_F3,		spawn,		SHCMD("displayselect") },
 	{ MODKEY,			XK_F4,		spawn,		SHCMD(TERMINAL " -e pulsemixer; kill -44 $(pidof dwmblocks)") },
@@ -348,4 +348,3 @@ static Button buttons[] = {
 	{ ClkTagBar,		0,		Button5,	shiftview,	{.i = 1} },
 	{ ClkRootWin,		0,		Button2,	togglebar,	{0} },
 };
-
