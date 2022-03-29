@@ -1,9 +1,8 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	1) notify-send "🌐 $(iwctl station wlan0 show | grep net | awk '{print $3}')" "$(echo $(expressvpn status | grep -i connec | head -n 1) | sed 's/.*m//')";;
+	1) notify-send "🌐 $(iwctl station wlan0 show | grep net | awk '{print $3}')";;
 	2) "$TERMINAL" -e iwctl; pkill -RTMIN+4 dwmblocks ;;
-	3) expressvpn_dmenu ;;
 	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
@@ -14,9 +13,9 @@ elif grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null ; then
 fi
 
 if ! [ -f /sys/class/net/tun*/operstate ]; then
-	vpn_state="{leak }"
+	vpn_state=""
 else
-	vpn_state="[vpn]"
+	vpn_state=""
 fi
 
 echo "$wifiicon""$(sed "s/down//;s/up/🌐/" /sys/class/net/e*/operstate 2>/dev/null)""$vpn_state"
